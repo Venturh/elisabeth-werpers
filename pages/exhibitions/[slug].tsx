@@ -219,8 +219,11 @@ function ExhibitionImage({
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-	const { slug } = ctx.query;
+export const getServerSideProps: GetServerSideProps = async ({
+	locale,
+	query,
+}) => {
+	const { slug } = query;
 
 	return preloadQuery({
 		query: ExhebitionItemsBySlugDocument,
