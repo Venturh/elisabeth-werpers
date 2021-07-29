@@ -1,0 +1,57 @@
+query AllExhibitsItems($language: String!) {
+	ExhibitItems(starts_with: $language, sort_by: "created_at") {
+		items {
+			slug
+			full_slug
+			id
+			content {
+				title
+				description
+				artist
+				dimension
+				year
+				image {
+					...Image
+				}
+				images {
+					...Image
+				}
+				exhibition {
+					content
+					slug
+					fullSlug
+					createdAt
+				}
+			}
+		}
+	}
+}
+
+query ExhebitItemsBySlug($slug: String!, $language: String!) {
+	ExhibitItems(by_slugs: $slug, starts_with: $language) {
+		items {
+			slug
+			full_slug
+			id
+			content {
+				title
+				description
+				artist
+				dimension
+				year
+				image {
+					...Image
+				}
+				images {
+					...Image
+				}
+				exhibition {
+					content
+					slug
+					fullSlug
+					createdAt
+				}
+			}
+		}
+	}
+}

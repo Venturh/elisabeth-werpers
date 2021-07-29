@@ -1,0 +1,27 @@
+fragment News on NewsItem {
+	slug
+	full_slug
+	content {
+		title
+		text
+		date
+		image {
+			...Image
+		}
+	}
+}
+query AllNewsItems($lang: String!) {
+	NewsItems(starts_with: $lang, sort_by: "created_at") {
+		items {
+			...News
+		}
+	}
+}
+
+query NewsItemsBySlug($slug: String!, $lang: String!) {
+	NewsItems(by_slugs: $slug, starts_with: $lang) {
+		items {
+			...News
+		}
+	}
+}

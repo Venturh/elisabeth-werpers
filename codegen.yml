@@ -1,0 +1,23 @@
+overwrite: true
+schema:
+  - https://gapi.storyblok.com/v1/api:
+      headers:
+        token: ${STORYBLOK_TOKEN}
+        version: draft
+documents: './gql/**/*.gql'
+
+generates:
+  generated/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      skipTypename: true
+      maybeValue: T | undefined
+      scalars:
+        Date: string
+        JSON: unknown
+hooks:
+  afterOneFileWrite:
+    - prettier --write

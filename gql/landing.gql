@@ -1,0 +1,25 @@
+query LandingData($language: String!) {
+	ExhibitItems(
+		starts_with: $language
+		sort_by: "created_at"
+		with_tag: "highlight"
+	) {
+		items {
+			slug
+			content {
+				image {
+					...Image
+				}
+			}
+		}
+	}
+	ExhibitionItems(
+		starts_with: $language
+		with_tag: "highlight"
+		sort_by: "updated_at"
+	) {
+		items {
+			...Exhebition
+		}
+	}
+}

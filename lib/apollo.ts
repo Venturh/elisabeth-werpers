@@ -49,23 +49,6 @@ export function initializeApollo({ initialState }: ClientOptions) {
 	return _apolloClient;
 }
 
-export async function preloadQuery(
-	context: GetServerSidePropsContext,
-	...queries: QueryOptions[]
-): Promise<GetServerSidePropsResult<{}>> {
-	const client = initializeApollo({
-		headers: context.req.headers as Record<string, string>,
-	});
-
-	await Promise.all(queries.map((queryOptions) => client.query(queryOptions)));
-	const initialClientState = client.cache.extract();
-	return {
-		props: {
-			initialClientState,
-		},
-	};
-}
-
 export function useApollo(initialState?: Record<string, any>) {
 	const client = useMemo(
 		() => initializeApollo({ initialState }),
@@ -73,4 +56,17 @@ export function useApollo(initialState?: Record<string, any>) {
 	);
 
 	return client;
+}
+
+export async function preloadQuery(
+	queryOption: QueryOptions,
+): Promise<GetServerSidePropsResult<{}>> {
+	const client = initializeApollo({});
+	await client.query(queryOption);
+	const initialClientState = client.cache.extract();
+	return {
+		props: {
+			initialClientState,
+		},
+	};
 }

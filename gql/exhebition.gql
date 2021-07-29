@@ -1,0 +1,47 @@
+fragment Image on Asset {
+	title
+	alt
+	filename
+	id
+}
+
+fragment Exhebition on ExhibitionItem {
+	slug
+	full_slug
+	content {
+		_uid
+		title
+		description
+		time
+		year
+		artist
+		image {
+			...Image
+		}
+		images {
+			...Image
+		}
+		exhibits {
+			content
+			slug
+			fullSlug
+			createdAt
+		}
+	}
+}
+
+query AllExhibitionItems($language: String!) {
+	ExhibitionItems(starts_with: $language, sort_by: "created_at") {
+		items {
+			...Exhebition
+		}
+	}
+}
+
+query ExhebitionItemsBySlug($slug: String!, $language: String!) {
+	ExhibitionItems(by_slugs: $slug, starts_with: $language) {
+		items {
+			...Exhebition
+		}
+	}
+}
