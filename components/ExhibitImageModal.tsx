@@ -156,9 +156,9 @@ function ItemDetails({ item, isExhibition = false }: Props) {
 				<p>{item.content!.description}</p>
 			</div>
 			{exhibitions && exhibitions.length > 0 && (
-				<ul className="pt-3 mt-1 text-center lg:text-left">
+				<ul className="pt-3 mt-1 ">
 					<span className="text-lg font-medium">{t('exhibitions')}</span>
-					<li className="flex flex-col items-center space-y-2 lg:items-start">
+					<li className="flex flex-col items-start space-y-2">
 						{(
 							(item as ExhibitItem).content!.exhibition as ExhibitionItem[]
 						).map((exhibition) => (
